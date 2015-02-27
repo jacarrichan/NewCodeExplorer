@@ -1,0 +1,77 @@
+<!DOCTYPE idea-plugin PUBLIC "Plugin/DTD" "http://plugins.intellij.net/plugin.dtd">
+<idea-plugin url="http://plugins.intellij.net/plugin/?id=3739">
+  <name>NewCodeExplorer</name>
+  <description><![CDATA[
+	NewCodeExplorer helps to analyze Java code: find all method call chains to the method, what methods called from the method,
+	and other. Handy diagram in the NewCodeExplorer tool window shows analysis results (methods and calls between them).
+
+    <p>Execute plugin commands from <b>Analyze</b> menu (Method structure, Methods and calls in, Method call chains to), and plugin will show analysis results on the diagram.
+    You can add more nodes to the opened diagram by <b>double-clicking</b> on diagram nodes or
+    executing commands from the <b>context menu</b> for diagram nodes.</p>
+
+    <p>See usage instructions, <a href="http://handyedit.com/com.handyedit.codeexplorer/faq.html">FAQ</a> and
+    <a href="http://handyedit.com/com.handyedit.codeexplorer/demo.html">demo</a> for more information about plugin features.</p>
+    ]]>
+  </description>
+  <change-notes><![CDATA[
+    <ul>
+        <li>Plugin is multitabbed now: Analyze command results are opened in a new tab</li>
+        <li>Diagram node for interface method: methods that implement it are shown on diagram instead method calls from it</li>
+        <li>Added method filters that used when perform analysis: the plugin doesn't analyze these methods and doesn't show them on diagram (configure filters in NewCodeExplorer settings)</li>
+        <li>Long operations are called with progress dialog. So UI doesn't freeze and you can cancel long operation</li>
+        <li>Can perform analysis for selected diagram nodes using context or Analyze menu to add more nodes to the opened diagram</li>
+        <li>Changed method structure command: added all calls from the method within class</li>
+        <li>Fixes: unit analysis</li>
+        <li>UI enhancements: click mode combo, inner class method name</li>
+        <li>Node tooltip: more info, toolbar button "Show method body in tooltip" (with method icon)</li>
+        <li>Added Jump to source action (F4) to the context menu</li>
+    </ul>
+    ]]>
+  </change-notes>
+  <version>1.3</version>
+  <vendor url="http://handyedit.com/" email="com.handyedit.codeexplorer@handyedit.com">HandyEdit</vendor>
+  <idea-version since-build="8664"/>
+  <actions>
+    <group popup="false" description="Code explorer actions">
+      <add-to-group group-id="AnalyzeMenu" anchor="first"/>
+      <action id="CodeExplorer.ShowMethodStructure"
+              class="com.handyedit.codeexplorer.ui.action.analyze.MethodStructureAction" text="Method structure"
+              description="Show methods called from the method" icon="/nodes/method.png">
+        <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt E"/>
+      </action>
+      <action id="CodeExplorer.ShowClassMethodStructure"
+              class="com.handyedit.codeexplorer.ui.action.analyze.MethodCallsInAction" text="Methods and calls in..."
+              description="Show all methods and calls between them in class, package, module or project">
+      </action>
+      <action id="CodeExplorer.ShowMethodCallChains"
+              class="com.handyedit.codeexplorer.ui.action.analyze.MethodCallChainsInAction" text="Method call chains to this..."
+              description="Show method call chains to the method">
+        <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt R"/>
+      </action>
+      <action id="CodeExplorer.ShowMethodCallFromChains"
+              class="com.handyedit.codeexplorer.ui.action.analyze.MethodCallChainsFromAction" text="Method call chains to this from..."
+              description="Show method call chains to the method from module, package or class">
+      </action>
+      <separator/>
+    </group>
+    <group>
+      <action id="CodeExplorer.ShowDependencies"
+              class="com.handyedit.codeexplorer.ui.action.graph.ShowDependenciesAction"
+              text="Show dependencies">
+      </action>
+      <action id="CodeExplorer.ShowUsages"
+              class="com.handyedit.codeexplorer.ui.action.graph.ShowUsagesAction"
+              text="Show usages">
+      </action>
+      <action id="CodeExplorer.ShowStructure"
+              class="com.handyedit.codeexplorer.ui.action.graph.ShowStructureAction"
+              text="Show structure">
+      </action>
+    </group>
+  </actions>
+  <project-components>
+    <component>
+      <implementation-class>com.handyedit.codeexplorer.CodeExplorerPlugin</implementation-class>
+    </component>
+  </project-components>
+</idea-plugin>
